@@ -4,5 +4,5 @@
 - Active game object:
   - Name: Bomb
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Target
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

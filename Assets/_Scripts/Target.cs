@@ -5,9 +5,9 @@ public class Target : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    private float minForce = 12f;
-    private float maxForce = 16f;
-    private float torqueForce = 10f;
+    private float minForce = 16f;
+    private float maxForce = 18f;
+    private float torqueForce = 2f;
     private float xRange = 4f;
     private float ySpawnPos = -6f;
 
@@ -19,10 +19,17 @@ public class Target : MonoBehaviour
         transform.position = RandomSpawnPosition();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
+        Destroy(gameObject);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("KillZone"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
