@@ -21,6 +21,7 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Ver como configurar el proyecto para que el nuevo Input Manager funcione
         Destroy(gameObject);
     }
 
