@@ -465,8 +465,8 @@ MonoBehaviour:
   - {fileID: 5066568515995147853, guid: 4375ea3cf5f83bb4a8209f8a8c0f6a52, type: 3}
   - {fileID: 1333013001303036772, guid: f2791493a03d77546bc849ea8c9762d7, type: 3}
   - {fileID: 2283861896670847726, guid: 00eb852f86d6e1d438e135eefee86d0b, type: 3}
-  spawnRate: 1
   gameOver: 0
+  scoreTMP: {fileID: 1565515661}
 --- !u!1 &1043111703
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25}
+  m_AnchoredPosition: {x: 24.999939, y: -25}
   m_SizeDelta: {x: 460, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1565515661

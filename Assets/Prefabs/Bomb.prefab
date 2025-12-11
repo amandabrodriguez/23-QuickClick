@@ -92,6 +92,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &6660653814649557247
 Animator:
@@ -175,3 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9493e412f6aadb4a8f527c35ccafe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+  pointValue: -20

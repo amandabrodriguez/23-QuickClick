@@ -91,6 +91,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &4628953234219188832
 Rigidbody:
@@ -138,8 +139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.51974, y: 0.17482021, z: 0.5152532}
-  m_Center: {x: 0, y: -0.000000022351742, z: -0.000000044703484}
+  m_Size: {x: 0.51974, y: 0.23380308, z: 0.5152532}
+  m_Center: {x: 0, y: -0.0026810542, z: -0.000000059604645}
 --- !u!114 &3440277206778188465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9493e412f6aadb4a8f527c35ccafe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+  pointValue: 3

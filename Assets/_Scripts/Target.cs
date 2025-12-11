@@ -3,17 +3,23 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
 
+    [Range(-100, 100)]
+    public int pointValue;
+
     private Rigidbody _rigidbody;
+    private GameManager gameManager;
 
     private float minForce = 16f;
     private float maxForce = 18f;
     private float torqueForce = 2f;
     private float xRange = 4f;
     private float ySpawnPos = -6f;
+    private int penalizationPoints = -10;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        gameManager = FindAnyObjectByType<GameManager>();
         _rigidbody.AddForce(RandomForce(), ForceMode.Impulse);
         _rigidbody.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
         transform.position = RandomSpawnPosition();
@@ -21,7 +27,8 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Ver como configurar el proyecto para que el nuevo Input Manager funcione
+        //Ver como configurar el proyecto para que el nuevo Input System funcione
+        gameManager.UpdateScore(pointValue);
         Destroy(gameObject);
     }
 
@@ -29,6 +36,10 @@ public class Target : MonoBehaviour
     {
         if (other.gameObject.CompareTag("KillZone"))
         {
+            if (pointValue > 0)
+            {
+                gameManager.UpdateScore(penalizationPoints);
+            }
             Destroy(gameObject);
         }
     }
