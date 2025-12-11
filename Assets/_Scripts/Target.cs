@@ -5,6 +5,7 @@ public class Target : MonoBehaviour
 
     [Range(-100, 100)]
     public int pointValue;
+    public ParticleSystem explosionParticle;
 
     private Rigidbody _rigidbody;
     private GameManager gameManager;
@@ -27,19 +28,31 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Ver como configurar el proyecto para que el nuevo Input System funcione
-        gameManager.UpdateScore(pointValue);
-        Destroy(gameObject);
+        if (gameManager.currentGameState == GameManager.GameState.Playing)
+        {
+            //Ver como configurar el proyecto para que el nuevo Input System funcione
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            if (gameObject.CompareTag("Bad"))
+            {
+                gameManager.GameOver();
+            }
+            else
+            {
+                gameManager.UpdateScore(pointValue);
+            }
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("KillZone"))
         {
-            if (pointValue > 0)
+            if (gameObject.CompareTag("Good"))
             {
-                gameManager.UpdateScore(penalizationPoints);
+                gameManager.UpdateLostFood();
             }
+
             Destroy(gameObject);
         }
     }
