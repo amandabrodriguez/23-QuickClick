@@ -10,12 +10,11 @@ public class Target : MonoBehaviour
     private Rigidbody _rigidbody;
     private GameManager gameManager;
 
-    private float minForce = 16f;
-    private float maxForce = 18f;
-    private float torqueForce = 2f;
-    private float xRange = 4f;
-    private float ySpawnPos = -6f;
-    private int penalizationPoints = -10;
+    private readonly float minForce = 16f;
+    private readonly float maxForce = 18f;
+    private readonly float torqueForce = 2f;
+    private readonly float xRange = 4f;
+    private readonly float ySpawnPos = -6f;
 
     void Start()
     {

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -20,21 +20,23 @@ public class GameManager : MonoBehaviour
         Loading,
         Playing,
         Paused,
-        GameOver,
+        GameOver
     }
 
     [SerializeField] private TextMeshProUGUI scoreTMP;
     [SerializeField] private TextMeshProUGUI lostFoodTMP;
-    [SerializeField] private TextMeshProUGUI gameOverTMP;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private TextMeshProUGUI gamePausedTMP;
     [SerializeField] private RawImage pauseOrPlayImage;
+    [SerializeField] private Button pauseOrPlayBtn;
+    [SerializeField] private GameObject gameStatisticsPanel;
     [SerializeField] private Sprite[] pauseAndPlaySprites; //0: Pause, 1: Play
 
     public List<GameObject> targetPrefabs;
 
 
     [HideInInspector] public GameState currentGameState = GameState.Loading;
-    [HideInInspector] public bool gameOver = false;
 
     private readonly float spawnRate = 1.0f;
     private readonly int maxLostFood = 3;
@@ -49,14 +51,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        pauseOrPlayImage.texture = pauseAndPlaySprites[0].texture; //Pausa
-        gameOverTMP.gameObject.SetActive(false);
-        gamePausedTMP.gameObject.SetActive(false);
-        currentGameState = GameState.Playing;
-        StartCoroutine(SpawnTarget());
-        Score = 0;
-        UpdateScore(0);
-        UpdateLostFood();
+        StartConfiguration();
     }
 
     IEnumerator SpawnTarget()
@@ -100,11 +95,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        gameOver = true;
         currentGameState = GameState.GameOver;
-        gameOverTMP.gameObject.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
+
+    /// <summary>
+    /// Pausa o reanuda el juego según el estado actual (Playing o Paused).
+    /// </summary>
     public void PauseGame()
     {
         if (currentGameState == GameState.Playing)
@@ -119,5 +117,39 @@ public class GameManager : MonoBehaviour
             pauseOrPlayImage.texture = pauseAndPlaySprites[0].texture; //Pausa
             Time.timeScale = 1f;
         }
+    }
+
+    /// <summary>
+    /// Método que inicia la partida desde el menú principal.
+    /// </summary>
+    public void StartGame()
+    {
+        currentGameState = GameState.Playing;
+        mainMenuPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        gamePausedTMP.gameObject.SetActive(false);
+        gameStatisticsPanel.SetActive(true);
+        pauseOrPlayBtn.gameObject.SetActive(true);
+        pauseOrPlayImage.texture = pauseAndPlaySprites[0].texture; //Pausa
+        StartCoroutine(SpawnTarget());
+        Score = 0;
+        UpdateScore(0);
+        UpdateLostFood();
+    }
+
+    /// <summary>
+    /// Reiniciar el juego recargando la escena actual.
+    /// </summary>
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void StartConfiguration()
+    {
+        currentGameState = GameState.Playing;
+        mainMenuPanel.SetActive(true);
+        gameStatisticsPanel.SetActive(false);
+        pauseOrPlayBtn.gameObject.SetActive(false);
     }
 }
