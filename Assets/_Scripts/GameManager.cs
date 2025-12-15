@@ -7,14 +7,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // TODO: Implementar diferentes niveles de dificultad que afecten a la velocidad de aparición de los objetivos y a la puntuación obtenida y la cantidad de comida que se pueda perder.
-    public enum Difficulty
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-
     public enum GameState
     {
         Loading,
@@ -38,8 +30,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public GameState currentGameState = GameState.Loading;
 
-    private readonly float spawnRate = 1.0f;
     private readonly int maxLostFood = 3;
+    private float spawnRate = 1.0f;
     private int foodFailedCount = -1;
     private int score;
 
@@ -54,8 +46,9 @@ public class GameManager : MonoBehaviour
         StartConfiguration();
     }
 
-    IEnumerator SpawnTarget()
+    IEnumerator SpawnTarget(Difficulty difficulty)
     {
+        spawnRate /= (float)difficulty + 1;
         while (currentGameState == GameState.Playing)
         {
             yield return new WaitForSeconds(spawnRate);
@@ -122,7 +115,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Método que inicia la partida desde el menú principal.
     /// </summary>
-    public void StartGame()
+    /// <param name="difficulty">Número entero que indica la dificultad del juego</param>
+    public void StartGame(Difficulty difficulty)
     {
         currentGameState = GameState.Playing;
         mainMenuPanel.SetActive(false);
@@ -131,7 +125,7 @@ public class GameManager : MonoBehaviour
         gameStatisticsPanel.SetActive(true);
         pauseOrPlayBtn.gameObject.SetActive(true);
         pauseOrPlayImage.texture = pauseAndPlaySprites[0].texture; //Pausa
-        StartCoroutine(SpawnTarget());
+        StartCoroutine(SpawnTarget(difficulty));
         Score = 0;
         UpdateScore(0);
         UpdateLostFood();
