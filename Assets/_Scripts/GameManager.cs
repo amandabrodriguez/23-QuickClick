@@ -139,9 +139,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Configuración inicial del juego al arrancar la aplicación.
+    /// </summary>
     void StartConfiguration()
     {
-        currentGameState = GameState.Playing;
+        currentGameState = GameState.Loading;
         mainMenuPanel.SetActive(true);
         gameStatisticsPanel.SetActive(false);
         pauseOrPlayBtn.gameObject.SetActive(false);
