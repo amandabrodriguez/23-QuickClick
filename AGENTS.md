@@ -2,7 +2,7 @@
 - Project name: 23-QuickClick
 - Unity version: Unity 6000.3.0f1
 - Active game object:
-  - Name: GameManager
+  - Name: PausePlay RIMG
   - Tag: Untagged
-  - Layer: Default
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

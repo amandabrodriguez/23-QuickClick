@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     public void ShowMaxScore()
     {
         int maxScore = PlayerPrefs.GetInt(MAX_SCORE_PREFS, 0);
-        scoreTMP.text = maxScore > 0 ? "Max Score: " + maxScore : "";
+        scoreTMP.text = maxScore > 0 ? "" + maxScore : "";
     }
 
     /// <summary>
@@ -180,5 +180,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(MAX_SCORE_PREFS, score);
             // TODO: Si hay una nueva puntuación máxima, mostrar algún tipo de notificación al jugador. Partículas.
         }
+    }
+
+    /// <summary>
+    /// Sale de la aplicación.
+    /// </summary>
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
