@@ -824,6 +824,9 @@ MonoBehaviour:
   - {fileID: 5066568515995147853, guid: 4375ea3cf5f83bb4a8209f8a8c0f6a52, type: 3}
   - {fileID: 1333013001303036772, guid: f2791493a03d77546bc849ea8c9762d7, type: 3}
   - {fileID: 2283861896670847726, guid: 00eb852f86d6e1d438e135eefee86d0b, type: 3}
+  - {fileID: 3172690239716010687, guid: b748cd675a572cf4bac20aa748691246, type: 3}
+  - {fileID: 2873507266293931332, guid: 98bed636f0f80d04188b193fb33ed2ec, type: 3}
+  - {fileID: 2396899057396367414, guid: 8fcc5279eb9a5c043983623c862374c8, type: 3}
   currentGameState: 1
 --- !u!1 &596966676
 GameObject:

@@ -2,7 +2,7 @@
 - Project name: 23-QuickClick
 - Unity version: Unity 6000.3.0f1
 - Active game object:
-  - Name: GameManager
-  - Tag: Untagged
-  - Layer: Default
+  - Name: Carrot
+  - Tag: Good
+  - Layer: Target
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
