@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject lostFoodPanel;
     [SerializeField] private TextMeshProUGUI gamePausedTMP;
     [SerializeField] private RawImage pauseOrPlayImage;
+    [SerializeField] private Image maxScoreImage;
     [SerializeField] private Button pauseOrPlayBtn;
     [SerializeField] private Sprite[] pauseAndPlaySprites; //0: Pause, 1: Play
 
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     public void ShowMaxScore()
     {
         int maxScore = PlayerPrefs.GetInt(MAX_SCORE_PREFS, 0);
+        maxScoreImage.gameObject.SetActive(maxScore > 0);
         scoreTMP.text = maxScore > 0 ? "" + maxScore : "";
     }
 
