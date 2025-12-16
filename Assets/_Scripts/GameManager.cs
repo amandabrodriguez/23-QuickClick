@@ -19,18 +19,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lostFoodTMP;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject lostFoodPanel;
     [SerializeField] private TextMeshProUGUI gamePausedTMP;
     [SerializeField] private RawImage pauseOrPlayImage;
     [SerializeField] private Button pauseOrPlayBtn;
-    [SerializeField] private GameObject gameStatisticsPanel;
     [SerializeField] private Sprite[] pauseAndPlaySprites; //0: Pause, 1: Play
 
     public List<GameObject> targetPrefabs;
 
-
     [HideInInspector] public GameState currentGameState = GameState.Loading;
 
-    private readonly int maxLostFood = 3;
+    private const string MAX_SCORE_PREFS = "MaxScore";
+
+    private Difficulty currentGameDifficulty = Difficulty.Medium;
+    private int maxLostFood = 3;
     private float spawnRate = 1.0f;
     private int foodFailedCount = -1;
     private int score;
@@ -44,8 +46,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartConfiguration();
+        ShowMaxScore();
     }
 
+    /// <summary>
+    /// Spawnea objetivos en la escena a una tasa determinada por la dificultad seleccionada.
+    /// </summary>
+    /// <param name="difficulty">Dificultad seleccionada al inicio del juego</param>
     IEnumerator SpawnTarget(Difficulty difficulty)
     {
         spawnRate /= (float)difficulty + 1;
@@ -58,13 +65,22 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Actualizar la puntuación del jugador y el texto en pantalla.
+    /// Actualizar la puntuación del jugador y el texto en pantalla según la dificultad.
     /// </summary>
     /// <param name="scoreToAdd">Número de puntos a añadir a la puntuación global.</param>
     public void UpdateScore(int scoreToAdd)
     {
-        Score += scoreToAdd;
-        scoreTMP.text = "Score: " + Score;
+        Score += scoreToAdd + (int)currentGameDifficulty;
+        scoreTMP.text = "" + Score;
+    }
+
+    /// <summary>
+    /// Muestra la puntuación máxima alcanzada en partidas anteriores.
+    /// </summary>
+    public void ShowMaxScore()
+    {
+        int maxScore = PlayerPrefs.GetInt(MAX_SCORE_PREFS, 0);
+        scoreTMP.text = maxScore > 0 ? "Max Score: " + maxScore : "";
     }
 
     /// <summary>
@@ -75,7 +91,7 @@ public class GameManager : MonoBehaviour
         if (currentGameState == GameState.Playing)
         {
             foodFailedCount++;
-            lostFoodTMP.text = "Lost Food: " + Mathf.Clamp(foodFailedCount, 0, maxLostFood) + "/" + maxLostFood;
+            lostFoodTMP.text = Mathf.Clamp(foodFailedCount, 0, maxLostFood) + "/" + maxLostFood;
         }
         if (foodFailedCount >= maxLostFood)
         {
@@ -88,6 +104,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        SaveMaxScore();
         currentGameState = GameState.GameOver;
         gameOverPanel.SetActive(true);
     }
@@ -119,15 +136,17 @@ public class GameManager : MonoBehaviour
     public void StartGame(Difficulty difficulty)
     {
         currentGameState = GameState.Playing;
+        currentGameDifficulty = difficulty;
         mainMenuPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gamePausedTMP.gameObject.SetActive(false);
-        gameStatisticsPanel.SetActive(true);
         pauseOrPlayBtn.gameObject.SetActive(true);
+        lostFoodPanel.SetActive(true);
         pauseOrPlayImage.texture = pauseAndPlaySprites[0].texture; //Pausa
-        StartCoroutine(SpawnTarget(difficulty));
+        maxLostFood -= (int)currentGameDifficulty;
+        StartCoroutine(SpawnTarget(currentGameDifficulty));
         Score = 0;
-        UpdateScore(0);
+        UpdateScore(-(int)currentGameDifficulty);
         UpdateLostFood();
     }
 
@@ -146,7 +165,20 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GameState.Loading;
         mainMenuPanel.SetActive(true);
-        gameStatisticsPanel.SetActive(false);
         pauseOrPlayBtn.gameObject.SetActive(false);
+        lostFoodPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Guarda la puntuación máxima alcanzada en PlayerPrefs si la puntuación actual es mayor.
+    /// </summary>
+    private void SaveMaxScore()
+    {
+        int maxScore = PlayerPrefs.GetInt(MAX_SCORE_PREFS, 0);
+        if (score > maxScore)
+        {
+            PlayerPrefs.SetInt(MAX_SCORE_PREFS, score);
+            // TODO: Si hay una nueva puntuación máxima, mostrar algún tipo de notificación al jugador. Partículas.
+        }
     }
 }

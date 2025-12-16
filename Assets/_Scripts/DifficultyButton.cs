@@ -23,6 +23,9 @@ public class DifficultyButton : MonoBehaviour
         _button.onClick.AddListener(SetDifficulty);
     }
 
+    /// <summary>
+    /// Modifica la dificultad del juego según el botón presionado.
+    /// </summary>
     public void SetDifficulty()
     {
         gameManager.StartGame(difficultyLevel);
