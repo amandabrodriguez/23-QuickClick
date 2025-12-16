@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GameState.Playing;
         currentGameDifficulty = difficulty;
+        maxScoreImage.gameObject.SetActive(true);
         mainMenuPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gamePausedTMP.gameObject.SetActive(false);

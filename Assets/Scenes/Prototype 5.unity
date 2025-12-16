@@ -814,6 +814,7 @@ MonoBehaviour:
   lostFoodPanel: {fileID: 993029684}
   gamePausedTMP: {fileID: 1493422976}
   pauseOrPlayImage: {fileID: 1420128564}
+  maxScoreImage: {fileID: 265059306}
   pauseOrPlayBtn: {fileID: 596966678}
   pauseAndPlaySprites:
   - {fileID: 21300000, guid: fef682982234236409152b25669f60fb, type: 3}
