@@ -17,7 +17,7 @@ QuickClick is a Fruit Ninja–style Unity 3D game where the player must click on
 
 
 ## Technical requirements:
-- **Unity Version:** 6000.3.0f1 or higher.
+- **Unity Version:** 6000.3.0f1.
 - **Render Pipeline:** URP.
 - **Platforms:** PC.
 
